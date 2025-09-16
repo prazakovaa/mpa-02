@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useId} from "react";
 
 type ControlledInputProps = {
     label: string;
@@ -6,18 +6,29 @@ type ControlledInputProps = {
     onChange: (value: string) => void;
 }
 
-const ControlledInput: React.FC<ControlledInputProps> = ({label, defaultValue, onCHange}) => {
+const ControlledInput: React.FC<ControlledInputProps> = ({label, defaultValue, onChange}) => {
     const [value, setValue] = useState<string>(defaultValue);
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
-
     }
+
+    const id = useId();
+
+    const validate = (value: string) => {
+        return value.length > 3;
+    }
+
     return (
         <div>
-            <label>Vstup</label>
-        <input type="text" value={value} onChange={handleChange}/>
+            <label>htmlFor={id}{label}</label>
+            <input id={id} type="text" value={value} onChange={handleChange}/>
+            <span>{value}</span>
+            <span>{validate(value) ? "OK" : "X"}</span>
+            <button>Odeslat</button>
+            <span>{id}</span>
         </div>
-    )
+    );
 }
 
 export default ControlledInput;
