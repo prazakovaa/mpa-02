@@ -25,7 +25,7 @@ const ControlledInput: React.FC<ControlledInputProps> = ({label, defaultValue, o
             <input id={id} type="text" value={value} onChange={handleChange}/>
             <span>{value}</span>
             <span>{validate(value) ? "OK" : "X"}</span>
-            <button>Odeslat</button>
+            <button onClick={() => {onChange(value)}}>Odeslat</button>
             <span>{id}</span>
         </div>
     );
